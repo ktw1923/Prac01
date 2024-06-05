@@ -1,51 +1,66 @@
 plugins {
-    id("java")
-    id("war")
+    id 'java'
+    id 'war'
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = 'org.example'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation("org.springframework:spring-test:4.2.0.RELEASE")
-    testImplementation("junit:junit:4.12")
+    testImplementation 'org.springframework:spring-test:4.2.0.RELEASE'
+    testImplementation 'junit:junit:4.12'
 
-    compileOnly("org.projectlombok:lombok:1.18.22")
-    compileOnly("javax.servlet:javax.servlet-api:3.1.0")
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
 
-    // Spring 5 Framework
+    // Spring Web 라이브러리 추가
+    implementation 'org.springframework:spring-web:5.3.20'
     implementation 'org.springframework:spring-webmvc:5.3.20'
-    implementation 'org.springframework:spring-context-support:5.3.20'
+    implementation 'org.springframework:spring-context:5.3.20'
+
+    // Spring WebSocket 및 Messaging 라이브러리 추가
+    implementation 'org.springframework:spring-websocket:5.3.20'
+    implementation 'org.springframework:spring-messaging:5.3.20'
+
+    // Jackson 라이브러리 추가
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+
+    // JSTL 라이브러리 추가
+    implementation 'javax.servlet:jstl:1.2'
 }
 
 tasks.test {
     useJUnitPlatform()
 }
 
-def frontendDir = "$projectDir/src/main/frontend"
+def frontendDir = "$projectDir/frontend"
 
 sourceSets {
     main {
-        resources { srcDirs = ["$projectDir/src/main/resources"]
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
         }
     }
 }
 
-processResources { dependsOn "copyReactBuildFiles" }
+processResources {
+    dependsOn "copyReactBuildFiles"
+}
 
 task installReact(type: Exec) {
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install' }
-    else {
-        commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
+        commandLine 'npm.cmd', 'install'
+    } else {
+        commandLine 'npm', 'install'
     }
 }
 
@@ -55,14 +70,14 @@ task buildReact(type: Exec) {
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run-script", "build"
+        commandLine 'npm.cmd', 'run', 'build'
     } else {
-        commandLine "npm", "run-script", "build"
+        commandLine 'npm', 'run', 'build'
     }
 }
 
 task copyReactBuildFiles(type: Copy) {
     dependsOn "buildReact"
     from "$frontendDir/build"
-    into "$projectDir/src/main/resources/static"
+    into "$projectDir/src/main/webapp/static"
 }

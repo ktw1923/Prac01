@@ -1,13 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="./react/index.html"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>Home</title>
 </head>
 <body>
 <div id="root"></div>
-<script src="${SRC_PATH}/index.js"></script>
-$END$
+<script src="<c:url value='/static/js/bundle.js' />"></script>
 </body>
 </html>
