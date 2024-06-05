@@ -1,0 +1,8 @@
+
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¥»†´ÿÿÿÿÿ8ÀÖà¼ş1J$1e0cdb63-5687-4981-b504-0b6bdf4f4f0b
+~
+java:S1874"6Remove this use of "JacksonFactory"; it is deprecated.(«ÜŠ“ûÿÿÿÿ8ÑÖà¼ş1J$060a2162-82b4-4554-9ce8-3fece3789940
+‚
+java:S1854":Remove this useless assignment to local variable "userId".(ó£¡¾şÿÿÿÿ8ÂßÕ¼ş1J$54fb7f47-2457-44dd-bafc-136579adfc1f
+s
+java:S1481"+Remove this unused "userId" local variable.(ó£¡¾şÿÿÿÿ8ÇßÕ¼ş1J$0163f198-a7b5-4bd1-81ef-cfed1773e7b8

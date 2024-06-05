@@ -14,7 +14,6 @@
 
     <!-- 정적 리소스 제공 설정 -->
     <mvc:resources mapping="/static/**" location="/static/" />
-    <mvc:resources mapping="/favicon.ico" location="/static/favicon.ico" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
