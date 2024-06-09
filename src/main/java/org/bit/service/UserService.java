@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserMapper userMapper;
-
-    public User findByEmail(String email) {
-        return userMapper.findByEmail(email);
-    }
 
     public void insertUser(User user) {
         userMapper.insertUser(user);
     }
-}
 
+    public User getUserByEmail(String email) {
+        return userMapper.getUserByEmail(email);
+    }
+}

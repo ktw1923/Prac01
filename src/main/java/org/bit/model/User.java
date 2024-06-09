@@ -1,19 +1,10 @@
 package org.bit.model;
 
 public class User {
-    private int id;
     private String email;
     private String password;
 
-    // getters and setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters and setters
     public String getEmail() {
         return email;
     }
