@@ -1,45 +1,35 @@
-import React, { useState } from "react";
+import React from 'react';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+
+const clientId = '975411602786-m61p0e7053pnrpi7j4gl92ftmdpjkj8u.apps.googleusercontent.com'; // 여기에 새로 생성한 클라이언트 ID를 입력하세요
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const onSuccess = async (response) => {
+        const { credential } = response;
+        try {
+            const res = await axios.post('http://localhost:8080/api/google-login', { tokenId: credential });
+            console.log('Google login success', res.data);
+        } catch (error) {
+            console.error('Google login error', error);
+        }
+    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
-        const message = await response.text();
-        alert(message);
+    const onError = (response) => {
+        console.error('Google login failed', response);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
+        <GoogleOAuthProvider clientId={clientId}>
             <div>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                <h2>Login</h2>
+                <GoogleLogin
+                    onSuccess={onSuccess}
+                    onError={onError}
+                    useOneTap
                 />
             </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        </GoogleOAuthProvider>
     );
 };
 

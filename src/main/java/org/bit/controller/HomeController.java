@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "index"; // /WEB-INF/views/index.jsp로 포워딩
+        return "index"; // "/WEB-INF/views/index.jsp"로 매핑됨
     }
 }
