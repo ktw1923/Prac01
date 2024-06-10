@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 const GoogleLoginComponent = () => {
     useEffect(() => {
-        // Load the Google API library
         const start = () => {
             gapi.client.init({
                 clientId: '975411602786-m61p0e7053pnrpi7j4gl92ftmdpjkj8u.apps.googleusercontent.com',
